@@ -1,5 +1,5 @@
 {
-  "name": "stinden",
+  "name": "sniktau",
   "version": "0.0.1",
   "description": "--------------------------------------------------------------------------------",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jjwyse/stinden.git"
+    "url": "git+https://github.com/jjwyse/sniktau.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jjwyse/stinden/issues"
+    "url": "https://github.com/jjwyse/sniktau/issues"
   },
-  "homepage": "https://github.com/jjwyse/stinden#readme"
+  "homepage": "https://github.com/jjwyse/sniktau#readme"
 }
