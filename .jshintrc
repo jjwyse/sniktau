@@ -1,0 +1,19 @@
+{
+    "curly": false,
+    "eqeqeq": true,
+    "esversion": 6,
+    "indent": 2,
+    "latedef": true,
+    "unused": "vars",
+    "undef": true,
+    "node": true,
+    "expr": true,
+    "globals": {
+        "before": true,
+        "beforeEach": true,
+        "after": true,
+        "afterEach": true,
+        "describe": true,
+        "it": true
+    }
+}

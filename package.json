@@ -1,10 +1,10 @@
 {
   "name": "sniktau",
   "version": "0.0.1",
-  "description": "--------------------------------------------------------------------------------",
+  "description": "Pulls data from Strava and determines all summits in the US you have summited.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover _mocha test -- --reporter spec --ui bdd"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/jjwyse/sniktau/issues"
   },
-  "homepage": "https://github.com/jjwyse/sniktau#readme"
+  "homepage": "https://github.com/jjwyse/sniktau#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2"
+  }
 }
