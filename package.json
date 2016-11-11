@@ -4,7 +4,8 @@
   "description": "Pulls data from Strava and determines all summits in the US you have summited.",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha test -- --reporter spec --ui bdd"
+    "test": "istanbul cover _mocha test -- --reporter spec --ui bdd",
+    "start": "webpack-dev-server --port 7337"
   },
   "repository": {
     "type": "git",
