@@ -4,8 +4,11 @@
   "description": "Pulls data from Strava and determines all summits in the US you have summited.",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha test -- --reporter spec --ui bdd",
-    "start": "webpack-dev-server --port 7337"
+    "start": "webpack-dev-server --port 7337",
+    "start:deploy": "NODE_ENV=production nohup webpack-dev-server --config webpack.prod.config.js --port 3002 > sniktau.log 2> sniktau.log < /dev/null &",
+    "lint": "./bin/lint.sh js && ./bin/lint.sh jsx",
+    "test": "webpack --bail --progress && npm run lint && istanbul cover _mocha test -- --reporter spec --ui bdd",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
