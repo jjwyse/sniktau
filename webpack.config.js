@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:8111',
+    'webpack-dev-server/client?http://localhost:7337',
     'webpack/hot/only-dev-server',
     './src/index.jsx'
   ],
@@ -31,7 +31,7 @@ module.exports = {
     historyApiFallback: true,
     contentBase: './dist',
     host: "0.0.0.0",
-    port: 8111,
+    port: 7337,
     hot: true
   },
   plugins: [
