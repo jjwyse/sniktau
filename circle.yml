@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 5.4.0
+
+test:
+  post:
+    - npm run coveralls
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./bin/deploy.sh ${PWD}

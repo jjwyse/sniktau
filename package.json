@@ -6,8 +6,10 @@
   "scripts": {
     "start": "webpack-dev-server --port 7337",
     "start:deploy": "NODE_ENV=production nohup webpack-dev-server --config webpack.prod.config.js --port 3002 > sniktau.log 2> sniktau.log < /dev/null &",
+    "build": "webpack --bail --progress",
     "lint": "./bin/lint.sh js && ./bin/lint.sh jsx",
-    "test": "webpack --bail --progress && npm run lint && istanbul cover _mocha test -- --reporter spec --ui bdd",
+    "test:unit": "babel-node ./node_modules/istanbul/lib/cli cover node_modules/mocha/bin/_mocha test/**/*.js* -- --require test/helper.jsx --require ignore-styles --recursive",
+    "test": "npm run build && npm run lint && npm run test:unit",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -22,7 +24,7 @@
   "homepage": "https://github.com/jjwyse/sniktau#readme",
   "devDependencies": {
     "autoprefixer": "^6.5.1",
-    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
@@ -34,8 +36,11 @@
     "eslint": "^3.8.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^6.4.1",
+    "ignore-styles": "^5.0.1",
     "istanbul": "^0.4.5",
+    "jsdom": "^9.8.3",
     "mocha": "^3.1.2",
+    "mockery": "^2.0.0",
     "react-hot-loader": "^1.3.0",
     "webpack-dev-server": "^1.16.2"
   },
