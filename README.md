@@ -28,3 +28,4 @@ $ npm start
 
 > **PROTIP:** By default, uses the react hot reloader so changes are pushed to the browser.  This works for the majority of changes,
 however there are certain things that require a page refresh.
+
