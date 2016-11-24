@@ -17,6 +17,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.scss', '.css', '.js', '.jsx', '.json'],
+    alias: { 'react/lib/ReactMount': 'react-dom/lib/ReactMount' },
     modulesDirectories: [
       'node_modules',
       path.resolve(__dirname, './node_modules')
