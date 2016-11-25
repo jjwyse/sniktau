@@ -4,10 +4,10 @@ machine:
 
 test:
   post:
-    - npm run coveralls
+    - cd client && npm run coveralls
 
 deployment:
   production:
     branch: master
     commands:
-      - ./bin/deploy.sh ${PWD}
+      - ./client/bin/deploy.sh ${PWD}
