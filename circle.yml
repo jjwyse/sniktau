@@ -2,9 +2,17 @@ machine:
   node:
     version: 5.4.0
 
-test:
+checkout:
   post:
-    - cd client && npm run coveralls
+    - cd client
+
+dependencies:
+  override:
+    - npm install
+
+test:
+  override:
+    - npm test && npm run coveralls
 
 deployment:
   production:
