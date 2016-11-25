@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/client/index.jsx',
+  entry: './src/index.jsx',
   module: {
     loaders: [{
       test: /(\.js|\.jsx)$/,
