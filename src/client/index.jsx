@@ -10,9 +10,7 @@ import thunk from 'redux-thunk';
 
 const baseHistory = browserHistory;
 const routingMiddleware = routerMiddleware(baseHistory);
-const reducer = combineReducers(Object.assign({}, reducers, {
-  routing: routerReducer
-}));
+const reducer = combineReducers(Object.assign({}, reducers, {routing: routerReducer}));
 const enhancer = compose(applyMiddleware(thunk, routingMiddleware));
 
 const store = createStore(reducer, enhancer);
