@@ -15,4 +15,4 @@ scp $BASE_DIR/client/webpack.prod.config.js sniktau@$APP_SERVER:/home/sniktau/wo
 scp $BASE_DIR/client/package.json sniktau@$APP_SERVER:/home/sniktau/workspace/sniktau/client/package.json
 
 # start sniktau on app server
-ssh sniktau@$APP_SERVER 'bash -s' < bin/redeploy.sh
+ssh sniktau@$APP_SERVER 'bash -s' < client/bin/redeploy.sh

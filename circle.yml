@@ -5,6 +5,9 @@ machine:
 dependencies:
   override:
     - cd client && npm install
+  cache_directories:
+    - 'client/node_modules'
+
 
 test:
   override:
