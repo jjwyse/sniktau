@@ -4,17 +4,17 @@ machine:
 
 dependencies:
   override:
-    - cd client && npm install
+    - npm install
   cache_directories:
-    - 'client/node_modules'
+    - 'node_modules'
 
 
 test:
   override:
-    - cd client && npm test && npm run coveralls
+    - npm test && npm run coveralls
 
 deployment:
   production:
     branch: master
     commands:
-      - ./client/bin/deploy.sh ${PWD}
+      - ./bin/deploy.sh ${PWD}
