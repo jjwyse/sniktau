@@ -16,7 +16,9 @@ const enhancer = compose(applyMiddleware(thunk, routingMiddleware));
 const store = createStore(reducer, enhancer);
 const history = syncHistoryWithStore(baseHistory, store);
 
-ReactDom.render(
-  <Provider store={store}>
-  <Router history={history} routes={routes}/>
-</Provider>, document.getElementById('app'));
+window.onload = () => {
+  ReactDom.render(
+    <Provider store={store}>
+    <Router history={history} routes={routes} onUpdate={() => window.scrollTo(0, 0)}/>
+  </Provider>, document.getElementById('app'));
+};
