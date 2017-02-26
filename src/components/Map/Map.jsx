@@ -23,7 +23,7 @@ Map.propTypes = {
 };
 Map.defaultProps = {
   center: {lat: 39.732, lng: -104.99},
-  zoom: 15,
+  zoom: 13,
 };
 
 export default Map;

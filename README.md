@@ -20,12 +20,21 @@ If you don't have `node` and `npm` installed, do [that](https://docs.npmjs.com/g
 $ npm install
 ```
 
+## Configuration
+To run `sniktau`, you will need a `properties.js` file at the root of this project.  Here is an example of what that
+file should look like:
+
+```javascript
+export default {
+  googleMapsKey: "INSERT",
+  stravaClientId: INSERT,
+  stravaClientSecret: "INSERT",
+  redirectUri: "http://localhost:7447/login"
+};
+```
+
 ## Running
 ```bash
 # Fire that bad boy up:
 $ npm start
 ```
-
-> **PROTIP:** By default, uses the react hot reloader so changes are pushed to the browser.  This works for the majority of changes,
-however there are certain things that require a page refresh.
-

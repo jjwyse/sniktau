@@ -22,6 +22,7 @@ const logger = {
       Localhost: ${chalk.magenta(`http://${host}:${port}`)}
       ${divider}
       ${chalk.blue(`Press ${chalk.italic('CTRL-C')} to stop`)}
+      ${chalk.yellow(`Starting up...`)}
     `,
     );
   },
