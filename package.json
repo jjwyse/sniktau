@@ -7,6 +7,7 @@
     "//": "utilities",
     "build:prod": "npm run clean-and-copy && NODE_ENV=production webpack --progress --env.prod",
     "start": "npm run clean-and-copy && NODE_ENV=development babel-node ./src/server/server.js",
+    "start:deploy": "http-server ./dist",
     "test:unit": "bin/run-tests.sh",
     "test:unit:coverage": "bin/run-tests-coverage.sh",
     "test": "npm run prettify && webpack --bail --progress --env.prod && npm run lint && npm run test:unit:coverage",
@@ -22,7 +23,7 @@
     "type": "git",
     "url": "git+https://github.com/jjwyse/sniktau.git"
   },
-  "author": "",
+  "author": "jjwyse",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jjwyse/sniktau/issues"

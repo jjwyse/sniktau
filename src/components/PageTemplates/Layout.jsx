@@ -6,16 +6,18 @@ import styled from 'styled-components';
 // Needed for onTouchTap - http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const Wrapper = styled(MuiThemeProvider)`
-  width: 100vh;
+const App = styled.div`
+  width: 100vw;
   height: 100vh;
 `;
 
 const Layout = ({children}) => {
   return (
-    <Wrapper>
-      {children}
-    </Wrapper>
+    <App>
+      <MuiThemeProvider>
+        {children}
+      </MuiThemeProvider>
+    </App>
   );
 };
 Layout.propTypes = {
