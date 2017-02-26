@@ -8,8 +8,9 @@ dependencies:
   cache_directories:
     - 'node_modules'
 
-
 test:
+  pre:
+    - echo "module.exports = {};" > properties.js
   override:
     - npm test && npm run coveralls
 
