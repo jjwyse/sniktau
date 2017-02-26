@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractStyles = new ExtractTextPlugin('css/[name].[hash].css');
 const CompressionPlugin = require('compression-webpack-plugin');
-const properties = require('./properties').default;
+const properties = require('./properties');
 
 // The assignment of the `output: { publicPath: $ }`
 // Essentially this is where static assets are stored

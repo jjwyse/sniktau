@@ -1,6 +1,12 @@
 import jsdom from 'jsdom';
 
 const mockery = require('mockery');
+mockery.registerMock('properties', {
+  googleMapsKey: '',
+  stravaClientId: 0,
+  stravaClientSecret: '',
+  redirectUri: 'http://localhost:7447/login',
+});
 mockery.enable({warnOnReplace: false, warnOnUnregistered: false});
 
 // Set up testing evnvironment to run like a browser in the command line
