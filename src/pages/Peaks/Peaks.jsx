@@ -15,7 +15,6 @@ class Peaks extends React.Component {
           const lat = peak.geometry.coordinates[1];
           const lng = peak.geometry.coordinates[0];
 
-          // TODO - JJW
           if (lat < 35 || lat > 41) {
             return null;
           }

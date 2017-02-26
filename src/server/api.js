@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import allPeaks from '../data/all';
+import properties from '../../properties';
 
 /**
  * Handles authenticating with strava, by exchanging the OAuth code for an access token
@@ -8,8 +9,7 @@ import allPeaks from '../data/all';
  */
 const authenticate = (req, res) => {
   const {code, client_id} = req.body;
-  // TODO - JJW - properties file
-  const clientSecret = '2157171cb27e65757f6928fc5d5ae0d2811088d1';
+  const clientSecret = properties.stravaClientSecret;
 
   const config = {
     method: 'post',

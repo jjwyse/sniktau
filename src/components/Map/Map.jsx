@@ -1,12 +1,12 @@
 import React, {PropTypes} from 'react';
 import GoogleMapReact from 'google-map-react';
+import properties from 'properties';
 
 const Map = ({center, zoom, children}) => {
-  // TODO - JJW - property
   return (
     <GoogleMapReact
       bootstrapURLKeys={{
-        key: 'AIzaSyCi52DiWxr55TXUEhIcCosVNIUe3TMb2L4',
+        key: properties.googleMapsKey,
         language: 'en',
       }}
       defaultCenter={center}

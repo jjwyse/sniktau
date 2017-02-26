@@ -34,7 +34,6 @@ const addDevMiddleware = (app, webpackConfig) => {
   // TODO - JJW - gotta be a better way of architecting this
   // All API requests will be handled by our api module
   app.all('/api/*', (req, res) => {
-    console.log(`handling api`);
     // TODO - JJW - validate authentication here
     return api(req.path, req, res);
   });

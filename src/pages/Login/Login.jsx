@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import styled from 'styled-components';
 
 import {oauthLogin} from 'state/authentication';
+import properties from 'properties';
 
 const Container = styled.div`
   display: flex;
@@ -28,8 +29,7 @@ class Login extends Component {
   render() {
     const onConnect = e => {
       e.preventDefault();
-      // TODO - JJW - property drive these
-      window.location = `https://www.strava.com/oauth/authorize?client_id=1529&response_type=code&state=hideMe&approvalPrompt=force&redirect_uri=http://localhost:7337/login`;
+      window.location = `https://www.strava.com/oauth/authorize?client_id=${properties.stravaClientId}&response_type=code&state=hideMe&approvalPrompt=force&redirect_uri=${properties.redirectUri}`;
     };
 
     return (
