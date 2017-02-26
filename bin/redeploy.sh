@@ -3,4 +3,4 @@
 export PATH=/opt/node/bin:$PATH
 
 cd /home/sniktau/workspace/sniktau
-npm start:deploy
+npm run start:deploy

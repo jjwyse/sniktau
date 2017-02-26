@@ -8,6 +8,9 @@ ssh sniktau@$APP_SERVER 'bash -s' < bin/stop-all.sh
 
 # scp all necessary artifacts
 scp -r $BASE_DIR/dist sniktau@$APP_SERVER:/home/sniktau/workspace/sniktau
+scp -r $BASE_DIR/package.json sniktau@$APP_SERVER:/home/sniktau/workspace/sniktau
+scp -r $BASE_DIR/src sniktau@$APP_SERVER:/home/sniktau/workspace/sniktau
+scp -r $BASE_DIR/.babelrc sniktau@$APP_SERVER:/home/sniktau/workspace/sniktau
 
 # start sniktau on app server
 ssh sniktau@$APP_SERVER 'bash -s' < bin/redeploy.sh
