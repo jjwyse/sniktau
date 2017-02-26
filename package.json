@@ -33,6 +33,7 @@
     "body-parser": "^1.16.1",
     "color": "^1.0.3",
     "compromise": "^7.0.5",
+    "google-map-react": "^0.22.3",
     "immutability-helper": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.16.4",
