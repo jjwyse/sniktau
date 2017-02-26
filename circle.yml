@@ -10,8 +10,7 @@ dependencies:
 
 test:
   pre:
-    # - echo "module.exports = {googleMapsKey: ${GOOGLE_MAPS_KEY}, stravaClientId: ${STRAVA_CLIENT_ID}, stravaClientSecret: {$STRAVA_CLIENT_SECRET}, redirectUri: ${REDIRECT_URL}};" > properties.js
-    - echo "module.exports = {};" > properties.js
+    - echo "module.exports = {googleMapsKey: $GOOGLE_MAPS_KEY, stravaClientId: $STRAVA_CLIENT_ID, stravaClientSecret: $STRAVA_CLIENT_SECRET, redirectUri: $REDIRECT_URL};" > properties.js
   override:
     - npm test && npm run coveralls
 
