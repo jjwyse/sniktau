@@ -25,7 +25,7 @@ To run `sniktau`, you will need a `properties.js` file at the root of this proje
 file should look like:
 
 ```javascript
-export default {
+module.exports = {
   googleMapsKey: "INSERT",
   stravaClientId: INSERT,
   stravaClientSecret: "INSERT",
