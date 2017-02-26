@@ -31,8 +31,9 @@ const addDevMiddleware = (app, webpackConfig) => {
   // artifacts, we need configure express to use the in-memory index
   const fs = middleware.fileSystem;
 
+  // TODO - JJW - gotta be a better way of architecting this
   // All API requests will be handled by our api module
-  app.post('/api/*', (req, res) => {
+  app.all('/api/*', (req, res) => {
     // TODO - JJW - validate authentication here
     return api(req.path, req, res);
   });

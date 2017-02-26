@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractStyles = new ExtractTextPlugin('css/[name].[hash].css');
 const CompressionPlugin = require('compression-webpack-plugin');
+const properties = require('./properties').default;
 
 // The assignment of the `output: { publicPath: $ }`
 // Essentially this is where static assets are stored
@@ -182,6 +183,7 @@ const webpackConfig = env => {
         app$: path.resolve(__dirname, 'src/index.jsx'),
         components: path.resolve(__dirname, 'src/components/'),
         pages: path.resolve(__dirname, 'src/pages/'),
+        properties: path.resolve(__dirname, 'properties.js'),
         state: path.resolve(__dirname, 'src/state/'),
         test: path.resolve(__dirname, 'src/test/'),
         util: path.resolve(__dirname, 'src/util/'),
@@ -195,6 +197,10 @@ const webpackConfig = env => {
     },
     // Make web related variables available to our code, such as `window`
     target: 'web',
+    // Pass in our properties
+    externals: {
+      properties: JSON.stringify(properties)
+    }
   };
 };
 

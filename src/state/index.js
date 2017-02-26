@@ -7,10 +7,13 @@ import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
 import {browserHistory} from 'react-router';
 import {routerReducer as routing, routerMiddleware} from 'react-router-redux';
 
+import httpMiddleware from 'state/middleware/http';
 import {reducer as authentication} from 'state/authentication';
+import {reducer as peaks} from 'state/peaks';
 
 export const rootReducer = combineReducers({
   authentication,
+  peaks,
   routing,
 });
 
@@ -26,7 +29,7 @@ const reducer = (state, action) => {
 };
 
 const routingMiddleware = routerMiddleware(browserHistory);
-const middleware = [thunkMiddleware, routingMiddleware];
+const middleware = [thunkMiddleware, routingMiddleware, httpMiddleware];
 
 const createReduxStore = (initialState = {}) => {
   const enhancers = [applyMiddleware(...middleware)];

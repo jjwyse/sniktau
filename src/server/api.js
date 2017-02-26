@@ -1,4 +1,6 @@
 import fetch from 'isomorphic-fetch';
+import allPeaks from '../data/all';
+import properties from '../../properties';
 
 /**
  * Handles authenticating with strava, by exchanging the OAuth code for an access token
@@ -7,8 +9,7 @@ import fetch from 'isomorphic-fetch';
  */
 const authenticate = (req, res) => {
   const {code, client_id} = req.body;
-  // TODO - JJW - properties file
-  const clientSecret = '2157171cb27e65757f6928fc5d5ae0d2811088d1';
+  const clientSecret = properties.stravaClientSecret;
 
   const config = {
     method: 'post',
@@ -32,6 +33,13 @@ const authenticate = (req, res) => {
 };
 
 /**
+ * Returns all peaks
+ * @param {object} req The express request object
+ * @param {object} res The express response object
+ */
+const peaks = (req, res) => res.json(allPeaks);
+
+/**
  * Top level function that handles any incoming requests to /api/...
  * @param {string} path The URL path
  * @param {object} req The express request object
@@ -41,6 +49,8 @@ const handle = (path, req, res) => {
   switch (path) {
     case '/api/oauth':
       return authenticate(req, res);
+    case '/api/peaks':
+      return peaks(req, res);
     default:
       res.status(404);
       return res.json({error: `No resource found at ${path}`});
