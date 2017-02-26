@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const chalk = require('chalk');
+import chalk from 'chalk';
 const divider = chalk.gray('\n-----------------------------------');
 
 /**

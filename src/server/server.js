@@ -1,7 +1,7 @@
-const express = require('express');
-const path = require('path');
-const setupMiddleware = require('./middleware');
-const logger = require('./logger');
+import express from 'express';
+import path from 'path';
+import setupMiddleware from './middleware';
+import logger from './logger';
 const app = express();
 
 setupMiddleware(app, {

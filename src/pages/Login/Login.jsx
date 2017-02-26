@@ -13,6 +13,8 @@ const Container = styled.div`
 
 const StravaButton = styled.img`
   flex: 1 1 auto;
+  cursor: pointer
+  min-width: 500px;
 `;
 
 class Login extends Component {
@@ -26,6 +28,7 @@ class Login extends Component {
   render() {
     const onConnect = e => {
       e.preventDefault();
+      // TODO - JJW - property drive these
       window.location = `https://www.strava.com/oauth/authorize?client_id=1529&response_type=code&state=hideMe&approvalPrompt=force&redirect_uri=http://localhost:7337/login`;
     };
 

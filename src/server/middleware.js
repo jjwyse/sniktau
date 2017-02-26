@@ -1,6 +1,7 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import api from './api';
 
 /**
  * middleware.js
@@ -30,17 +31,10 @@ const addDevMiddleware = (app, webpackConfig) => {
   // artifacts, we need configure express to use the in-memory index
   const fs = middleware.fileSystem;
 
-  // if (pkg.dllPlugin) {
-  //   app.get(/\.dll\.js$/, (req, res) => {
-  //     const filename = req.path.replace(/^\//, '');
-  //     res.sendFile(path.join(process.cwd(), pkg.dllPlugin.path, filename));
-  //   });
-  // }
-
-  app.post('/api/oauth', (req, res) => {
-    console.log('/api/oauth');
-    console.log(req.body);
-    res.json(req.body);
+  // All API requests will be handled by our api module
+  app.post('/api/*', (req, res) => {
+    // TODO - JJW - validate authentication here
+    return api(req.path, req, res);
   });
 
   // Checks if the asset request is one of our in-memory assets
