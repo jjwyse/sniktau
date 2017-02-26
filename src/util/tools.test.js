@@ -1,5 +1,5 @@
-import { filter } from 'util/tools';
-import { expect } from 'chai';
+import {filter} from 'util/tools';
+import {expect} from 'chai';
 
 describe('tools', () => {
   it('should support filter', () => {

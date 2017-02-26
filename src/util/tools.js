@@ -1,3 +1,3 @@
-const filter = (item) => item && item === 'foo';
+const filter = item => item && item === 'foo';
 
-export { filter };
+export {filter};

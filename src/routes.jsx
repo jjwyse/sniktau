@@ -1,14 +1,14 @@
 import React from 'react';
-import {Route} from 'react-router';
+import {IndexRoute, Route} from 'react-router';
 
-import Layout from 'components/Layout';
-import Login from 'components/Login';
-import NotFound from 'components/NotFound';
+import Layout from 'components/PageTemplates/Layout';
+import Login from 'pages/Login/Login';
+import NotFound from 'pages/NotFound';
 
-export default(
+export default (
   <Route path="/" component={Layout}>
-    <Route path="/login" component={Login}></Route>
-    {/* <IndexRoute titleName='Dashboard' component={UserIsAuthenticated(Dashboard)}/> */}
-    <Route path='*' component={NotFound}></Route>
+    <IndexRoute component={Login} />
+    <Route path="/login" component={Login} />
+    <Route path="*" component={NotFound} />
   </Route>
 );

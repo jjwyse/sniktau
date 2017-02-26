@@ -38,6 +38,6 @@ jspm_packages
 
 # Custom
 src/data/peaks.geojson
-src/static/js
+dist/
 .coveralls.yml
 babel_cache

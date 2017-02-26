@@ -50,7 +50,7 @@
     //
     // The following rules point out areas where you might have made mistakes.
     //
-    "comma-dangle": 2, // disallow or enforce trailing commas
+    "comma-dangle": 0, // disallow or enforce trailing commas
     "no-cond-assign": 2, // disallow assignment in conditional expressions
     "no-console": 0, // disallow use of console (off by default in the node environment)
     "no-constant-condition": 2, // disallow use of constant expressions in conditions
@@ -115,7 +115,7 @@
     "no-new-wrappers": 2, // disallows creating new instances of String,Number, and Boolean
     "no-octal": 2, // disallow use of octal literals
     "no-octal-escape": 2, // disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
-    "no-param-reassign": 2, // disallow reassignment of function parameters (off by default)
+    "no-param-reassign": 0, // disallow reassignment of function parameters (off by default)
     "no-process-env": 0, // disallow use of process.env (off by default)
     "no-proto": 2, // disallow usage of __proto__ property
     "no-redeclare": 2, // disallow declaring the same variable more then once
@@ -161,8 +161,8 @@
     //
     // These rules are purely matters of style and are quite subjective.
     //
-    "indent": [1, 2, { "SwitchCase": 1 }],  // this option sets a specific tab width for your code (off by default)
-    "brace-style": 1, // enforce one true brace style (off by default)
+    "indent": [0, 0, { "SwitchCase": 1 }],  // this option sets a specific tab width for your code (off by default)
+    "brace-style": 0, // enforce one true brace style (off by default)
     "camelcase": [1, {"properties": "never"}], // require camel case names
     "comma-spacing": [1, { "before": false, "after": true }], // enforce spacing before and after comma
     "comma-style": [1, "last"], // enforce one true comma style (off by default)
@@ -178,8 +178,7 @@
     "no-array-constructor": 1, // disallow use of the Array constructor
     "no-lonely-if": 1, // disallow if as the only statement in an else block (off by default)
     "no-mixed-spaces-and-tabs": 1, // disallow mixed spaces and tabs for indentation
-    "no-multiple-empty-lines": [1, { "max": 2 }], // disallow multiple empty lines (off by default)
-    "no-nested-ternary": 1, // disallow nested ternary expressions (off by default)
+    "no-nested-ternary": 0, // disallow nested ternary expressions (off by default)
     "no-new-object": 1, // disallow use of the Object constructor
     "no-spaced-func": 1, // disallow space between function identifier and application
     "no-ternary": 0, // disallow the use of ternary operators (off by default)
@@ -218,7 +217,7 @@
     //
     "max-depth": [2, 3], // specify the maximum depth that blocks can be nested (off by default)
     "max-len": [2, 2000, 2], // specify the maximum length of a line in your program (off by default)
-    "max-params": [2, 5], // limits the number of parameters that can be used in the function declaration. (off by default)
+    "max-params": [2, 7], // limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": 0, // specify the maximum number of statement allowed in a function (off by default)
     "no-bitwise": 0, // disallow use of bitwise operators (off by default)
     "no-plusplus": 0, // disallow use of unary operators, ++ and -- (off by default)
