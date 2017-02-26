@@ -1,28 +1,18 @@
-export const MASK = 'MASK';
-export const MASK_HIDE = 'MASK_HIDE';
-export const LOGGED_IN = 'LOGGED_IN';
+import {CALL_API} from 'state/types';
 
-const mask = msg => ({type: MASK, msg});
-
-const unmask = () => ({type: MASK_HIDE});
+const LOGGED_IN = 'AUTHENTICATION:LOGGED_IN';
 
 const oauthLogin = (state, code) => {
-  return dispatch => {
-    dispatch(mask('Logging in...'));
-    const config = {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'User-Agent': 'sniktau',
+  return {
+    [CALL_API]: {
+      method: 'POST',
+      endpoint: '/oauth',
+      types: [LOGGED_IN],
+      payload: {
+        code,
+        client_id: 1529,
       },
-      body: JSON.stringify({code, client_id: 1529}),
-    };
-    return fetch('/api/oauth', config)
-      .then(r => r.json())
-      .then(responseJson => console.log(`Received JSON response: ${JSON.stringify(responseJson)}`))
-      .then(() => dispatch(unmask()))
-      .catch(e => console.log(`Epic fail: ${e}`));
+    },
   };
 };
 

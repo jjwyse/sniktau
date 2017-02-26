@@ -1,9 +1,7 @@
 import React, {PropTypes} from 'react';
 import GoogleMapReact from 'google-map-react';
 
-import Peak from 'components/Map/Markers/Peak';
-
-const Map = ({center, zoom}) => {
+const Map = ({center, zoom, children}) => {
   // TODO - JJW - property
   return (
     <GoogleMapReact
@@ -14,17 +12,18 @@ const Map = ({center, zoom}) => {
       defaultCenter={center}
       defaultZoom={zoom}
     >
-      <Peak name={'sniktau'} lat={39.67832020000003} lng={-105.8577885} />
+      {children}
     </GoogleMapReact>
   );
 };
 Map.propTypes = {
   center: PropTypes.object.isRequired,
   zoom: PropTypes.number.isRequired,
+  children: PropTypes.any,
 };
 Map.defaultProps = {
   center: {lat: 39.732, lng: -104.99},
-  zoom: 11,
+  zoom: 15,
 };
 
 export default Map;
