@@ -4,7 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractStyles = new ExtractTextPlugin('css/[name].[hash].css');
 const CompressionPlugin = require('compression-webpack-plugin');
-const properties = require('./properties');
+const properties = {
+  googleMapsKey: process.env.GOOGLE_MAPS_KEY,
+  stravaClientId: process.env.STRAVA_CLIENT_ID,
+  stravaClientSecret: process.env.STRAVA_CLIENT_SECRET,
+  redirectUri: process.env.SNIKTAU_REDIRECT_URL,
+};
 
 // The assignment of the `output: { publicPath: $ }`
 // Essentially this is where static assets are stored
@@ -199,8 +204,8 @@ const webpackConfig = env => {
     target: 'web',
     // Pass in our properties
     externals: {
-      properties: JSON.stringify(properties)
-    }
+      properties: JSON.stringify(properties),
+    },
   };
 };
 

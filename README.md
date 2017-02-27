@@ -21,16 +21,13 @@ $ npm install
 ```
 
 ## Configuration
-To run `sniktau`, you will need a `properties.js` file at the root of this project.  Here is an example of what that
-file should look like:
+To run `sniktau`, you will need to set the following environment variables.
 
-```javascript
-module.exports = {
-  googleMapsKey: "INSERT",
-  stravaClientId: INSERT,
-  stravaClientSecret: "INSERT",
-  redirectUri: "http://localhost:7447/login"
-};
+```bash
+export GOOGLE_MAPS_KEY=
+export STRAVA_CLIENT_SECRET=
+export STRAVA_CLIENT_ID=
+export SNIKTAU_REDIRECT_URL=http://localhost:7337/login
 ```
 
 ## Running
