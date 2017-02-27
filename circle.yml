@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 5.4.0
+    version: 6.3.0
 
 dependencies:
   override:
@@ -9,8 +9,6 @@ dependencies:
     - 'node_modules'
 
 test:
-  pre:
-    - echo "module.exports = {googleMapsKey: null, stravaClientId: null, stravaClientSecret: null, redirectUri: null};" > properties.js
   override:
     - npm test && npm run coveralls
 
