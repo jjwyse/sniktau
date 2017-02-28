@@ -31,13 +31,6 @@ const addDevMiddleware = (app, webpackConfig) => {
   // artifacts, we need configure express to use the in-memory index
   const fs = middleware.fileSystem;
 
-  // TODO - JJW - gotta be a better way of architecting this
-  // All API requests will be handled by our api module
-  app.all('/api/*', (req, res) => {
-    // TODO - JJW - validate authentication here
-    return api(req.path, req, res);
-  });
-
   // Checks if the asset request is one of our in-memory assets
   // (bundles, css) and serves it up. If it's not in memory, we pass
   // everything down to the next handler
@@ -100,9 +93,10 @@ const addProdMiddleware = (app, options) => {
   app.use(helmet());
 
   app.use(publicPath, express.static(outputPath));
+  app.use(bodyParser.json()); // for parsing API request
 
   // Serve up our compressed files when js is requested
-  app.get('*.js', function(req, res, next) {
+  app.get('*.js', (req, res, next) => {
     req.url += '.gz';
     res.set('Content-Encoding', 'gzip');
     next();
@@ -116,6 +110,11 @@ const addProdMiddleware = (app, options) => {
 
 module.exports = (app, options) => {
   const isProd = process.env.NODE_ENV === 'production';
+
+  app.all('/api/*', (req, res) => {
+    // TODO - JJW - validate authentication here
+    return api(req.path, req, res);
+  });
 
   if (isProd) {
     addProdMiddleware(app, options);

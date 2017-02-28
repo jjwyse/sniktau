@@ -7,4 +7,4 @@ cd /home/sniktau/workspace/sniktau
 npm i
 
 # fire 'er up'
-npm run start:deploy
+npm run start:prod
