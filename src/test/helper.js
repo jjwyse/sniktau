@@ -1,11 +1,12 @@
 import jsdom from 'jsdom';
 
 const mockery = require('mockery');
-mockery.registerMock('properties', {
+mockery.registerMock('config', {
   googleMapsKey: '',
   stravaClientId: 0,
   stravaClientSecret: '',
   redirectUri: 'http://localhost:7447/login',
+  dbConnectionString: `postgres://${process.env.SNIKTAU_DB_USER}@${process.env.SNIKTAU_DB_HOST}:${process.env.SNIKTAU_DB_PORT}/sniktau?connect_timeout=10&application_name=myapp`,
 });
 mockery.enable({warnOnReplace: false, warnOnUnregistered: false});
 

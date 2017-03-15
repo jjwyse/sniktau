@@ -9,6 +9,7 @@ const properties = {
   stravaClientId: process.env.SNIKTAU_STRAVA_CLIENT_ID,
   stravaClientSecret: process.env.SNIKTAU_STRAVA_CLIENT_SECRET,
   redirectUri: process.env.SNIKTAU_REDIRECT_URL,
+  dbConnectionString: `postgres://${process.env.SNIKTAU_DB_USER}@${process.env.SNIKTAU_DB_HOST}:${process.env.SNIKTAU_DB_PORT}/sniktau?connect_timeout=10&application_name=myapp`
 };
 
 // The assignment of the `output: { publicPath: $ }`
