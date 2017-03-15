@@ -24,9 +24,9 @@ $ npm install
 To run `sniktau`, you will need to set the following environment variables.
 
 ```bash
-export GOOGLE_MAPS_KEY=
-export STRAVA_CLIENT_SECRET=
-export STRAVA_CLIENT_ID=
+export SNIKTAU_GOOGLE_MAPS_KEY=
+export SNIKTAU_STRAVA_CLIENT_SECRET=
+export SNIKTAU_STRAVA_CLIENT_ID=
 export SNIKTAU_REDIRECT_URL=http://localhost:7337/login
 ```
 

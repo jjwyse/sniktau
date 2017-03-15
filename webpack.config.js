@@ -5,9 +5,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractStyles = new ExtractTextPlugin('css/[name].[hash].css');
 const CompressionPlugin = require('compression-webpack-plugin');
 const properties = {
-  googleMapsKey: process.env.GOOGLE_MAPS_KEY,
-  stravaClientId: process.env.STRAVA_CLIENT_ID,
-  stravaClientSecret: process.env.STRAVA_CLIENT_SECRET,
+  googleMapsKey: process.env.SNIKTAU_GOOGLE_MAPS_KEY,
+  stravaClientId: process.env.SNIKTAU_STRAVA_CLIENT_ID,
+  stravaClientSecret: process.env.SNIKTAU_STRAVA_CLIENT_SECRET,
   redirectUri: process.env.SNIKTAU_REDIRECT_URL,
 };
 
