@@ -1,8 +1,8 @@
-import config from 'config';
+import properties from 'properties';
 
 const client = require('knex')({
   client: 'pg',
-  connection: config.dbConnectionString,
+  connection: properties.dbConnectionString,
   searchPath: 'knex,public',
 });
 

@@ -1,7 +1,7 @@
 import jsdom from 'jsdom';
 
 const mockery = require('mockery');
-mockery.registerMock('config', {
+mockery.registerMock('properties', {
   googleMapsKey: '',
   stravaClientId: 0,
   stravaClientSecret: '',
