@@ -9,7 +9,8 @@ CREATE TABLE strava_user (
 DROP TABLE IF EXISTS sniktau_user;
 CREATE TABLE sniktau_user (
   id BIGSERIAL PRIMARY KEY,
-  strava_id BIGINT NOT NULL REFERENCES strava_user (id) ON DELETE CASCADE
+  strava_id BIGINT NOT NULL REFERENCES strava_user (id) ON DELETE CASCADE,
+  last_login DATE NOT NULL DEFAULT now()
 );
 
 -- user_session table

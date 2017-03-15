@@ -1,5 +1,20 @@
 import fetch from 'isomorphic-fetch';
+import {createSession, upsert} from 'db/user';
 import allPeaks from '../data/all';
+
+/**
+ * If user does not exist, create user, then create session and return mashup of them all
+ * @param {object} stravaUser The strava user to create
+ * @param {object} res The express response object
+ * @return {object} The newly created user and session token
+ */
+const createUserAndSession = (stravaUser) => {
+  return upsert(stravaUser)
+    .then(sniktauUser => {
+      return createSession(sniktauUser)
+        .then(token => ({token, ...stravaUser, ...sniktauUser}));
+    });
+};
 
 /**
  * Handles authenticating with strava, by exchanging the OAuth code for an access token
@@ -24,9 +39,12 @@ const authenticate = (req, res) => {
     return response.json().then(json => {
       if (!response.ok) {
         res.status(502);
-        res.send(json);
+        res.json(json);
+        return null;
       }
-      res.json(json);
+
+      return createUserAndSession(json)
+        .then(user => res.json(user));
     });
   });
 };
@@ -39,21 +57,12 @@ const authenticate = (req, res) => {
 const peaks = (req, res) => res.json(allPeaks);
 
 /**
- * Top level function that handles any incoming requests to /api/...
- * @param {string} path The URL path
- * @param {object} req The express request object
- * @param {object} res The express response object
+ * Top level function that defines what functions will handle what API requests
+ * @param {object} expressApp The express app to add any API definitions to
  */
-const handle = (path, req, res) => {
-  switch (path) {
-    case '/api/oauth':
-      return authenticate(req, res);
-    case '/api/peaks':
-      return peaks(req, res);
-    default:
-      res.status(404);
-      return res.json({error: `No resource found at ${path}`});
-  }
+const init = expressApp => {
+  expressApp.get('/api/peaks', peaks);
+  expressApp.post('/api/oauth', authenticate);
 };
 
-export default handle;
+export default init;

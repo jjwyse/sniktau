@@ -111,10 +111,8 @@ const addProdMiddleware = (app, options) => {
 module.exports = (app, options) => {
   const isProd = process.env.NODE_ENV === 'production';
 
-  app.all('/api/*', (req, res) => {
-    // TODO - JJW - validate authentication here
-    return api(req.path, req, res);
-  });
+  // initialize api handlers
+  api(app);
 
   if (isProd) {
     addProdMiddleware(app, options);
