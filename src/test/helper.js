@@ -8,6 +8,11 @@ mockery.registerMock('config', {
   redirectUri: 'http://localhost:7447/login',
   dbConnectionString: `postgres://${process.env.SNIKTAU_DB_USER}@${process.env.SNIKTAU_DB_HOST}:${process.env.SNIKTAU_DB_PORT}/sniktau?connect_timeout=10&application_name=myapp`,
 });
+mockery.registerMock('db/pg', () => {
+  return {
+    insert: object => Promise.resolve(object),
+  };
+});
 mockery.enable({warnOnReplace: false, warnOnUnregistered: false});
 
 // Set up testing evnvironment to run like a browser in the command line
