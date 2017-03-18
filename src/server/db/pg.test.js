@@ -1,4 +1,4 @@
-import pg from 'db/pg';
+import pg from 'server/db/pg';
 import {expect} from 'chai';
 
 describe('db', () => {
