@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import {createSession, upsert} from 'db/user';
+import {createSession, upsert} from './db/user';
 import allPeaks from '../data/all';
 
 /**

@@ -13,7 +13,7 @@ Pulls data from [Strava](https://strava.com) and keeps track of all peaks in the
 ## Installation
 If you don't have `node` and `npm` installed, do [that](https://docs.npmjs.com/getting-started/installing-node) first.
 
-> __PROTIP:__ `node` version must  be >= `v4.0.0`
+> __PROTIP:__ `node` version must  be >= `v6.3.0`
 
 ```bash
 # Install all necessary npm packages:

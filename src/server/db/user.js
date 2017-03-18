@@ -1,4 +1,4 @@
-import pg from 'server/db/pg';
+import pg from './pg';
 
 /**
  * Creates a new user
