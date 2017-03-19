@@ -24,8 +24,9 @@ const update = stravaUser => {
 
 const upsert = stravaUser => {
   // TODO - JJW
-  return pg('strava_user')
-    .retrieve(stravaUser.id);
+  // return pg('strava_user')
+  //   .retrieve(stravaUser.id);
+  return create(stravaUser);
 };
 
 const createSession = sniktauUser => {

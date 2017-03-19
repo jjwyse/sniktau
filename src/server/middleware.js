@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser';
 import api from './api';
 
 /**
@@ -25,7 +24,6 @@ const addDevMiddleware = (app, webpackConfig) => {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.use(bodyParser.json()); // for parsing API request
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we need configure express to use the in-memory index
@@ -93,7 +91,6 @@ const addProdMiddleware = (app, options) => {
   app.use(helmet());
 
   app.use(publicPath, express.static(outputPath));
-  app.use(bodyParser.json()); // for parsing API request
 
   // Serve up our compressed files when js is requested
   app.get('*.js', (req, res, next) => {
