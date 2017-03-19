@@ -41,4 +41,3 @@ src/data/peaks.geojson
 dist/
 .coveralls.yml
 babel_cache
-scratch/

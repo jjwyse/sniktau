@@ -1,9 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import bodyParser from 'body-parser';
+import jwt from 'jsonwebtoken';
 
 import {createSession, upsert} from './db/user';
 import logger from './logger';
 import allPeaks from '../data/all';
+
+const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
 
 /**
  * If user does not exist, create user, then create session and return mashup of them all
@@ -14,7 +17,9 @@ import allPeaks from '../data/all';
 const createUserAndSession = (stravaUser) => {
   return upsert(stravaUser)
     .then(sniktauUser => {
-      return createSession(sniktauUser)
+      const jwtToken = jwt.sign({ data: sniktauUser.id }, 'SECRETS', { expiresIn: SEVEN_DAYS_IN_SECONDS });
+      const session = {sniktauUserId: sniktauUser.id, bearerToken: stravaUser.access_token, token: jwtToken};
+      return createSession(session)
         .then(token => ({token, ...stravaUser, ...sniktauUser}));
     });
 };
@@ -47,12 +52,11 @@ const authenticate = (req, res) => {
           return null;
         }
 
-        logger.log(`Successfully exchanged oauth code for bearer token: ${JSON.stringify(json)}`);
         return createUserAndSession(json)
           .then(user => res.json(user));
       });
     })
-    .finally(e => {
+    .catch(e => {
       logger.error(e);
       res.status(502);
       return res.json({error: 'Failed to exchange OAuth code for access token'});

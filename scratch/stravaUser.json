@@ -1,0 +1,32 @@
+{
+    "access_token": "abc",
+    "token_type": "Bearer",
+    "athlete": {
+        "id": 1,
+        "username": "joshua_wyse",
+        "resource_state": 3,
+        "firstname": "Joshua",
+        "lastname": "Wyse",
+        "city": "Denver",
+        "state": "CO",
+        "country": "United States",
+        "sex": "M",
+        "premium": false,
+        "created_at": "2014-03-15T13:53:44Z",
+        "updated_at": "2017-03-19T13:36:36Z",
+        "badge_type_id": 0,
+        "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/4141857/1333168/15/medium.jpg",
+        "profile": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/4141857/1333168/15/large.jpg",
+        "friend": null,
+        "follower": null,
+        "follower_count": 76,
+        "friend_count": 62,
+        "mutual_friend_count": 0,
+        "athlete_type": 1,
+        "date_preference": "%m/%d/%Y",
+        "measurement_preference": "feet",
+        "email": "joshua.wyse@gmail.com",
+        "ftp": null,
+        "weight": 75.7499
+    }
+}
