@@ -77,9 +77,9 @@ const upsert = stravaUser => {
 const createSession = ({sniktauUserId, bearerToken, token})=> {
   const newSession = { sniktau_user_id: sniktauUserId, token, strava_bearer_token: bearerToken };
   return pg('user_session')
-    .returning('sniktau_user_id', 'token')
+    .returning(['sniktau_user_id', 'token'])
     .insert(newSession)
-    .then(session => session);
+    .then(sessions => sessions[0]);
 };
 
 

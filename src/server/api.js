@@ -20,7 +20,9 @@ const createUserAndSession = (stravaUser) => {
       const jwtToken = jwt.sign({ data: sniktauUser.id }, 'SECRETS', { expiresIn: SEVEN_DAYS_IN_SECONDS });
       const session = {sniktauUserId: sniktauUser.id, bearerToken: stravaUser.access_token, token: jwtToken};
       return createSession(session)
-        .then(token => ({token, ...stravaUser, ...sniktauUser}));
+        .then(createdSession => {
+          return {id: createdSession.sniktau_user_id, token: createdSession.token, strava: {...stravaUser}};
+        });
     });
 };
 
