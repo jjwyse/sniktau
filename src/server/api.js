@@ -48,6 +48,7 @@ const authenticate = (req, res) => {
     body: JSON.stringify({code, client_secret: clientSecret, client_id: clientId}),
   };
 
+  logger.log(`Making request to Strava with config: ${JSON.stringify(config)}`);
   return fetch('https://www.strava.com/oauth/token', config)
     .then(response => {
       return response.json().then(json => {
