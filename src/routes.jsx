@@ -14,7 +14,6 @@ import NotFound from 'pages/NotFound';
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.authentication.user,
   redirectAction: newLoc => dispatch => {
-    console.log(`redirectAction`);
     dispatch(routerActions.replace(newLoc));
   },
 });
