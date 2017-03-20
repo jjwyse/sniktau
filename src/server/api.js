@@ -1,5 +1,32 @@
 import fetch from 'isomorphic-fetch';
-import allPeaks from '../data/all';
+import bodyParser from 'body-parser';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+
+import {createSession, upsert} from './db/user';
+import logger from './logger';
+import allPeaks from './db/data/all';
+
+const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
+const CERT = fs.readFileSync('private.key');
+
+/**
+ * If user does not exist, create user, then create session and return mashup of them all
+ * @param {object} stravaUser The strava user to create
+ * @param {object} res The express response object
+ * @return {object} The newly created user and session token
+ */
+const createUserAndSession = (stravaUser) => {
+  return upsert(stravaUser)
+    .then(sniktauUser => {
+      const jwtToken = jwt.sign({ data: sniktauUser }, CERT, { expiresIn: SEVEN_DAYS_IN_SECONDS });
+      const session = {sniktauUserId: sniktauUser.id, bearerToken: stravaUser.access_token, token: jwtToken};
+      return createSession(session)
+        .then(createdSession => {
+          return {id: createdSession.sniktau_user_id, token: createdSession.token, strava: {...stravaUser}};
+        });
+    });
+};
 
 /**
  * Handles authenticating with strava, by exchanging the OAuth code for an access token
@@ -7,8 +34,9 @@ import allPeaks from '../data/all';
  * @param {object} res The express response object
  */
 const authenticate = (req, res) => {
-  const {code, client_id} = req.body;
-  const clientSecret = process.env.STRAVA_CLIENT_SECRET;
+  const {code} = req.body;
+  const clientSecret = process.env.SNIKTAU_STRAVA_CLIENT_SECRET;
+  const clientId = process.env.SNIKTAU_STRAVA_CLIENT_ID;
 
   const config = {
     method: 'post',
@@ -17,18 +45,32 @@ const authenticate = (req, res) => {
       'Content-Type': 'application/json',
       'User-Agent': 'sniktau',
     },
-    body: JSON.stringify({code, client_secret: clientSecret, client_id}),
+    body: JSON.stringify({code, client_secret: clientSecret, client_id: clientId}),
   };
 
-  return fetch('https://www.strava.com/oauth/token', config).then(response => {
-    return response.json().then(json => {
-      if (!response.ok) {
+  return fetch('https://www.strava.com/oauth/token', config)
+    .then(response => {
+      return response.json().then(json => {
+        if (!response.ok) {
+          res.status(502);
+          res.json(json);
+          return null;
+        }
+
+        return createUserAndSession(json)
+          .then(user => res.json(user));
+      });
+    })
+    .catch(e => {
+      logger.error(e);
+      if (e.name && e.name === 'FetchError') {
         res.status(502);
-        res.send(json);
+        return res.json({error: 'Failed to exchange OAuth code for access token', details: e.reason});
       }
-      res.json(json);
+
+      res.status(500);
+      return res.json({error: 'Failed to exchange OAuth code for access token'});
     });
-  });
 };
 
 /**
@@ -39,21 +81,13 @@ const authenticate = (req, res) => {
 const peaks = (req, res) => res.json(allPeaks);
 
 /**
- * Top level function that handles any incoming requests to /api/...
- * @param {string} path The URL path
- * @param {object} req The express request object
- * @param {object} res The express response object
+ * Top level function that defines what functions will handle what API requests
+ * @param {object} expressApp The express app to add any API definitions to
  */
-const handle = (path, req, res) => {
-  switch (path) {
-    case '/api/oauth':
-      return authenticate(req, res);
-    case '/api/peaks':
-      return peaks(req, res);
-    default:
-      res.status(404);
-      return res.json({error: `No resource found at ${path}`});
-  }
+const init = expressApp => {
+  expressApp.use(bodyParser.json());
+  expressApp.get('/api/peaks', peaks);
+  expressApp.post('/api/oauth', authenticate);
 };
 
-export default handle;
+export default init;

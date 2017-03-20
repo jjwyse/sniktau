@@ -1,6 +1,9 @@
-const LOADED = 'PEAKS:LOADED';
 import {CALL_API} from 'state/types';
 
+/* Constants */
+export const LOADED = 'PEAKS:LOADED';
+
+/* Actions */
 const loadAllPeaks = () => {
   return {
     [CALL_API]: {
@@ -11,6 +14,7 @@ const loadAllPeaks = () => {
   };
 };
 
+/* Reducer */
 const initialState = {loaded: false, all: []};
 const reducer = (state = initialState, {type, payload}) => {
   switch (type) {

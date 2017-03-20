@@ -1,23 +1,30 @@
+import {load, save} from 'util/storage';
 import {CALL_API} from 'state/types';
 
-const LOGGED_IN = 'AUTHENTICATION:LOGGED_IN';
+/* Constants */
+export const LOGGED_IN = 'AUTHENTICATION:LOGGED_IN';
 
-const oauthLogin = (state, code) => {
-  return {
-    [CALL_API]: {
-      method: 'POST',
-      endpoint: '/oauth',
-      types: [LOGGED_IN],
-      payload: {
-        code,
-        client_id: 1529,
-      },
-    },
-  };
-};
+/* Actions */
+const oauthLogin = (state, code) => ({
+  [CALL_API]: {
+    method: 'POST',
+    endpoint: '/oauth',
+    types: [LOGGED_IN],
+    payload: {code},
+  },
+});
 
-const reducer = (state = {}) => {
-  return state;
+/* Reducer */
+const initialState = {user: load()};
+
+const reducer = (state = initialState, {type, payload}) => {
+  switch (type) {
+    case LOGGED_IN:
+      save(payload);
+      return Object.assign({}, state, {user: payload});
+    default:
+      return state;
+  }
 };
 
 export {reducer, oauthLogin};

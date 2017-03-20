@@ -13,20 +13,31 @@ Pulls data from [Strava](https://strava.com) and keeps track of all peaks in the
 ## Installation
 If you don't have `node` and `npm` installed, do [that](https://docs.npmjs.com/getting-started/installing-node) first.
 
-> __PROTIP:__ `node` version must  be >= `v4.0.0`
+> __PROTIP:__ `node` version must  be >= `v6.3.0`
 
 ```bash
 # Install all necessary npm packages:
 $ npm install
 ```
 
+Next, if you don't already have postgres installed locally, you will need to do that.  Once you have postgres up and running, create a new database for sniktau to use.  Lastly, create a new user in postgres and grant all privileges on your database to this user.  To point the sniktau app at this postgres instance, set the following environment variables based on how your above setup.
+
+```bash
+export SNIKTAU_DB_HOST=localhost
+export SNIKTAU_DB_PORT=5432
+export SNIKTAU_DB_USER=
+export SNIKTAU_DB_PASSWORD=
+```
+
 ## Configuration
+You will need to create a `private.key` file that goes in your sniktau root folder, with the private key you want to use. This private key will be used to sign authentication requests using JWT.
+
 To run `sniktau`, you will need to set the following environment variables.
 
 ```bash
-export GOOGLE_MAPS_KEY=
-export STRAVA_CLIENT_SECRET=
-export STRAVA_CLIENT_ID=
+export SNIKTAU_GOOGLE_MAPS_KEY=
+export SNIKTAU_STRAVA_CLIENT_SECRET=
+export SNIKTAU_STRAVA_CLIENT_ID=
 export SNIKTAU_REDIRECT_URL=http://localhost:7337/login
 ```
 

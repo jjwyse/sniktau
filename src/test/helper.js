@@ -6,6 +6,12 @@ mockery.registerMock('properties', {
   stravaClientId: 0,
   stravaClientSecret: '',
   redirectUri: 'http://localhost:7447/login',
+  dbConnectionString: `postgres://${process.env.SNIKTAU_DB_USER}@${process.env.SNIKTAU_DB_HOST}:${process.env.SNIKTAU_DB_PORT}/sniktau?connect_timeout=10&application_name=myapp`,
+});
+mockery.registerMock('server/db/pg', () => {
+  return {
+    insert: object => Promise.resolve(object),
+  };
 });
 mockery.enable({warnOnReplace: false, warnOnUnregistered: false});
 
