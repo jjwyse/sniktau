@@ -10,7 +10,6 @@ describe('authentication', () => {
       const nextState = reducer(initialState, action);
 
       expect(nextState.user).to.deep.equal(action.payload);
-      expect(nextState.authenticated).to.be.true;
     });
   });
 });

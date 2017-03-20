@@ -1,5 +1,5 @@
 import React from 'react';
-import {IndexRoute, Route} from 'react-router';
+import {Route} from 'react-router';
 import {UserAuthWrapper} from 'redux-auth-wrapper';
 import {routerActions} from 'react-router-redux';
 
@@ -14,13 +14,13 @@ import NotFound from 'pages/NotFound';
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.authentication.user,
   redirectAction: newLoc => dispatch => {
+    console.log(`redirectAction`);
     dispatch(routerActions.replace(newLoc));
   },
 });
 
 export default (
   <Route path="/" component={Layout}>
-    <IndexRoute component={Login} />
     <Route path="/login" component={Login} />
 
     // All routes below require authentication

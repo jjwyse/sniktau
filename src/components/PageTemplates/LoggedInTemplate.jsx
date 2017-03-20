@@ -1,10 +1,16 @@
 import React, {PropTypes} from 'react';
+import styled from 'styled-components';
+
+const TemplateContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
 
 const LoggedInTemplate = ({children}) => {
   return (
-    <div>
+    <TemplateContainer>
       {children}
-    </div>
+    </TemplateContainer>
   );
 };
 LoggedInTemplate.propTypes = {

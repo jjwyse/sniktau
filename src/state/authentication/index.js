@@ -21,7 +21,7 @@ const reducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case LOGGED_IN:
       save(payload);
-      return Object.assign({}, state, {authenticated: true, user: payload});
+      return Object.assign({}, state, {user: payload});
     default:
       return state;
   }
