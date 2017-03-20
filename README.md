@@ -20,7 +20,18 @@ If you don't have `node` and `npm` installed, do [that](https://docs.npmjs.com/g
 $ npm install
 ```
 
+Next, if you don't already have postgres installed locally, you will need to do that.  Once you have postgres up and running, create a new database for sniktau to use.  Lastly, create a new user in postgres and grant all privileges on your database to this user.  To point the sniktau app at this postgres instance, set the following environment variables based on how your above setup.
+
+```bash
+export SNIKTAU_DB_HOST=localhost
+export SNIKTAU_DB_PORT=5432
+export SNIKTAU_DB_USER=
+export SNIKTAU_DB_PASSWORD=
+```
+
 ## Configuration
+You will need to create a `private.key` file that goes in your sniktau root folder, with the private key you want to use. This private key will be used to sign authentication requests using JWT.
+
 To run `sniktau`, you will need to set the following environment variables.
 
 ```bash

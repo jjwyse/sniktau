@@ -1,12 +1,14 @@
 import fetch from 'isomorphic-fetch';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
+import fs from 'fs';
 
 import {createSession, upsert} from './db/user';
 import logger from './logger';
-import allPeaks from '../data/all';
+import allPeaks from './db/data/all';
 
 const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
+const CERT = fs.readFileSync('private.key');
 
 /**
  * If user does not exist, create user, then create session and return mashup of them all
@@ -17,7 +19,7 @@ const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7;
 const createUserAndSession = (stravaUser) => {
   return upsert(stravaUser)
     .then(sniktauUser => {
-      const jwtToken = jwt.sign({ data: sniktauUser.id }, 'SECRETS', { expiresIn: SEVEN_DAYS_IN_SECONDS });
+      const jwtToken = jwt.sign({ data: sniktauUser }, CERT, { expiresIn: SEVEN_DAYS_IN_SECONDS });
       const session = {sniktauUserId: sniktauUser.id, bearerToken: stravaUser.access_token, token: jwtToken};
       return createSession(session)
         .then(createdSession => {
@@ -32,8 +34,9 @@ const createUserAndSession = (stravaUser) => {
  * @param {object} res The express response object
  */
 const authenticate = (req, res) => {
-  const {code, client_id} = req.body;
+  const {code} = req.body;
   const clientSecret = process.env.SNIKTAU_STRAVA_CLIENT_SECRET;
+  const clientId = process.env.SNIKTAU_STRAVA_CLIENT_ID;
 
   const config = {
     method: 'post',
@@ -42,7 +45,7 @@ const authenticate = (req, res) => {
       'Content-Type': 'application/json',
       'User-Agent': 'sniktau',
     },
-    body: JSON.stringify({code, client_secret: clientSecret, client_id}),
+    body: JSON.stringify({code, client_secret: clientSecret, client_id: clientId}),
   };
 
   return fetch('https://www.strava.com/oauth/token', config)
@@ -60,7 +63,12 @@ const authenticate = (req, res) => {
     })
     .catch(e => {
       logger.error(e);
-      res.status(502);
+      if (e.name && e.name === 'FetchError') {
+        res.status(502);
+        return res.json({error: 'Failed to exchange OAuth code for access token', details: e.reason});
+      }
+
+      res.status(500);
       return res.json({error: 'Failed to exchange OAuth code for access token'});
     });
 };
