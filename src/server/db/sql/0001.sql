@@ -9,7 +9,8 @@ CREATE TABLE strava_user (
   state TEXT NOT NULL,
   country TEXT NOT NULL,
   sex TEXT NOT NULL,
-  photo TEXT
+  photo TEXT,
+  bearer_token TEXT NOT NULL
 );
 
 -- sniktau_user table
@@ -20,10 +21,5 @@ CREATE TABLE sniktau_user (
   last_login TIMESTAMP NOT NULL DEFAULT now()
 );
 
--- user_session table
+-- user_session table - extinct
 DROP TABLE IF EXISTS user_session CASCADE;
-CREATE TABLE user_session (
-  sniktau_user_id BIGSERIAL NOT NULL REFERENCES sniktau_user (id) ON DELETE CASCADE,
-  token TEXT PRIMARY KEY,
-  strava_bearer_token TEXT NOT NULL
-);
