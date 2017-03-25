@@ -9,6 +9,7 @@ import fetch from 'isomorphic-fetch';
 import {isNil, merge, pipe, reject} from 'ramda';
 import {stringify} from 'querystring';
 import {CALL_API, NOTIFICATIONS_ALERT, NOTIFICATIONS_MASK} from 'state/types';
+import {loadToken} from 'util/storage';
 
 const createActionOfUnkownType = (actionType, options = {}) => {
   if (typeof actionType === 'object') {
@@ -35,6 +36,7 @@ const httpMiddleware = store => next => action => {
   // any null values
   const createHeaders = pipe(merge(httpCall.headers), reject(isNil));
   const headers = createHeaders({
+    Authorization: `Bearer ${loadToken()}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'User-Agent': 'sniktau',

@@ -1,6 +1,7 @@
 import {isNil} from 'ramda';
 
 import pg from './pg';
+import logger from '../logger';
 
 const toStravaDbUser = stravaUser => ({
   id: stravaUser.athlete.id,
@@ -74,7 +75,7 @@ const upsert = stravaUser => {
  * @param {string} bearerToken The strava OAuth bearer token
  * @return {string} The session token
  */
-const createSession = ({sniktauUserId, bearerToken, token})=> {
+const createToken = ({sniktauUserId, bearerToken, token})=> {
   const newSession = { sniktau_user_id: sniktauUserId, token, strava_bearer_token: bearerToken };
   return pg('user_session')
     .returning(['sniktau_user_id', 'token'])
@@ -82,5 +83,20 @@ const createSession = ({sniktauUserId, bearerToken, token})=> {
     .then(sessions => sessions[0]);
 };
 
+/**
+ * Validates a user's session
+ * @param {string} token The bearer token
+ * @return {boolean} True if the bearer token is legit, false otherwise
+ */
+const loadFromToken = (token) => {
+  logger.log('Loading user session from token');
+  return pg('user_session')
+    .innerJoin('sniktau_user', 'sniktau_user.id', 'user_session.sniktau_user_id')
+    .innerJoin('strava_user', 'strava_user.id', 'sniktau_user.strava_id')
+    .where({token: token})
+    .select()
+    .then(users => isNil(users) ? null : users[0]);
+};
 
-export {create, createSession, update, upsert};
+
+export {create, createToken, update, upsert, loadFromToken};

@@ -13,9 +13,18 @@ const save = json => localStorage.setItem(KEY, JSON.stringify(json));
 const load = () => JSON.parse(localStorage.getItem(KEY));
 
 /**
+ * Loads the given authorization token from local storage
+ * @return {string} The authenticated user's token, or null
+ */
+const loadToken = () => {
+  const user = load() || {};
+  return user.token;
+};
+
+/**
  *
  * Invalidates the current user by removing authorization data from local storage
  */
 const invalidate = () => localStorage.removeItem(KEY);
 
-export {save, load, invalidate};
+export {save, load, loadToken, invalidate};
