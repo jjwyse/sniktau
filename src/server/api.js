@@ -2,8 +2,9 @@ import fetch from 'isomorphic-fetch';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
+import {isNil} from 'ramda';
 
-import {createSession, upsert} from './db/user';
+import {createToken, upsert, loadFromToken} from './db/user';
 import logger from './logger';
 import allPeaks from './db/data/all';
 
@@ -16,16 +17,14 @@ const CERT = fs.readFileSync('private.key');
  * @param {object} res The express response object
  * @return {object} The newly created user and session token
  */
-const createUserAndSession = (stravaUser) => {
-  return upsert(stravaUser)
-    .then(sniktauUser => {
-      const jwtToken = jwt.sign({ data: sniktauUser }, CERT, { expiresIn: SEVEN_DAYS_IN_SECONDS });
-      const session = {sniktauUserId: sniktauUser.id, bearerToken: stravaUser.access_token, token: jwtToken};
-      return createSession(session)
-        .then(createdSession => {
-          return {id: createdSession.sniktau_user_id, token: createdSession.token, strava: {...stravaUser}};
-        });
+const createUserAndSession = stravaUser => {
+  return upsert(stravaUser).then(sniktauUser => {
+    const jwtToken = jwt.sign({data: sniktauUser}, CERT, {expiresIn: SEVEN_DAYS_IN_SECONDS});
+    const session = {sniktauUserId: sniktauUser.id, bearerToken: stravaUser.access_token, token: jwtToken};
+    return createToken(session).then(createdSession => {
+      return {id: createdSession.sniktau_user_id, token: createdSession.token, strava: {...stravaUser}};
     });
+  });
 };
 
 /**
@@ -58,8 +57,7 @@ const authenticate = (req, res) => {
           return null;
         }
 
-        return createUserAndSession(json)
-          .then(user => res.json(user));
+        return createUserAndSession(json).then(user => res.json(user));
       });
     })
     .catch(e => {
@@ -79,7 +77,36 @@ const authenticate = (req, res) => {
  * @param {object} req The express request object
  * @param {object} res The express response object
  */
-const peaks = (req, res) => res.json(allPeaks);
+const peaks = (req, res) => {
+  console.log(JSON.stringify(req.user));
+  return res.json(allPeaks);
+};
+
+/**
+ * Ensures that the given request has a valid Bearer token
+ * @param {object} req The express request object
+ * @param {object} res The express response object
+ * @param {Function} next Next function
+ */
+const authMiddleware = (req, res, next) => {
+  // check if the user is authenticated and, if so, attach user to the request
+  const bearer = req.headers.authorization;
+  if (isNil(bearer)) {
+    res.status(401);
+    return res.json({error: 'Invalid bearer token'});
+  }
+
+  const token = bearer.split(' ')[1];
+  return loadFromToken(token)
+    .then(user => {
+      if (!isNil(user)) {
+        req.user = user;
+        return next();
+      }
+      res.status(401);
+      return res.json({error: 'Invalid bearer token'});
+    });
+};
 
 /**
  * Top level function that defines what functions will handle what API requests
@@ -87,7 +114,7 @@ const peaks = (req, res) => res.json(allPeaks);
  */
 const init = expressApp => {
   expressApp.use(bodyParser.json());
-  expressApp.get('/api/peaks', peaks);
+  expressApp.get('/api/peaks', authMiddleware, peaks);
   expressApp.post('/api/oauth', authenticate);
 };
 
