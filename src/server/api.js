@@ -77,10 +77,7 @@ const authenticate = (req, res) => {
  * @param {object} req The express request object
  * @param {object} res The express response object
  */
-const peaks = (req, res) => {
-  console.log(JSON.stringify(req.user));
-  return res.json(allPeaks);
-};
+const peaks = (req, res) => res.json(allPeaks);
 
 /**
  * Ensures that the given request has a valid Bearer token
