@@ -194,6 +194,7 @@ const webpackConfig = env => {
         util: path.resolve(__dirname, 'src/util/'),
         routes$: path.resolve(__dirname, 'src/routes.jsx'),
         root$: path.resolve(__dirname, 'src/root.jsx'),
+        variables$: path.resolve(__dirname, 'src/variables.js'),
       },
     },
     // Tell webpack how to set up our node environment

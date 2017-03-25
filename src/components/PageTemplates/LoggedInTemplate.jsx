@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import styled from 'styled-components';
 
+import NavigationBar from 'components/Navigation/NavigationBar';
+
 const TemplateContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -9,6 +11,7 @@ const TemplateContainer = styled.div`
 const LoggedInTemplate = ({children}) => {
   return (
     <TemplateContainer>
+      <NavigationBar />
       {children}
     </TemplateContainer>
   );
