@@ -1,4 +1,7 @@
 import {isNil} from 'ramda';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+const SECRET = fs.readFileSync('private.key');
 
 import pg from './pg';
 import logger from '../logger';
@@ -13,7 +16,9 @@ const toStravaDbUser = stravaUser => ({
   country: stravaUser.athlete.country,
   sex: stravaUser.athlete.sex,
   photo: stravaUser.athlete.profile,
+  bearer_token: jwt.sign({access_token: stravaUser.access_token}, SECRET)
 });
+
 
 /**
  * Creates a new user
@@ -21,6 +26,7 @@ const toStravaDbUser = stravaUser => ({
  * @return {object} The newly created user
  */
 const create = (stravaUser) => {
+  logger.log(`Creating strava user: ${stravaUser.id}`);
   const newUser = toStravaDbUser(stravaUser);
   return pg('strava_user')
     .returning('id')
@@ -34,11 +40,26 @@ const create = (stravaUser) => {
 };
 
 /**
+ * Retrieve a user by their sniktau ID
+ * @param {number} sniktauId The sniktau user ID
+ * @return {object} The user with the given sniktau ID
+ */
+const retrieve = (sniktauId) => {
+  logger.log(`Loading user with id: ${sniktauId}`);
+  return pg('sniktau_user')
+    .innerJoin('strava_user', 'strava_user.id', 'sniktau_user.strava_id')
+    .where({id: sniktauId})
+    .select()
+    .then(users => isNil(users) ? null : users[0]);
+};
+
+/**
  * Updates a strava user in the database
  * @param {object} stravaUser The strava user to update
  * @return {object} The updated user
  */
 const update = stravaUser => {
+  logger.log(`Updating strava user: ${stravaUser.athlete.id}`);
   const updateUser = toStravaDbUser(stravaUser);
   return pg('strava_user')
     .returning()
@@ -69,34 +90,5 @@ const upsert = stravaUser => {
     });
 };
 
-/**
- * Creates a new session for the given sniktau user ID
- * @param {Number} sniktauUserId The sniktau user ID
- * @param {string} bearerToken The strava OAuth bearer token
- * @return {string} The session token
- */
-const createToken = ({sniktauUserId, bearerToken, token})=> {
-  const newSession = { sniktau_user_id: sniktauUserId, token, strava_bearer_token: bearerToken };
-  return pg('user_session')
-    .returning(['sniktau_user_id', 'token'])
-    .insert(newSession)
-    .then(sessions => sessions[0]);
-};
 
-/**
- * Validates a user's session
- * @param {string} token The bearer token
- * @return {boolean} True if the bearer token is legit, false otherwise
- */
-const loadFromToken = (token) => {
-  logger.log('Loading user session from token');
-  return pg('user_session')
-    .innerJoin('sniktau_user', 'sniktau_user.id', 'user_session.sniktau_user_id')
-    .innerJoin('strava_user', 'strava_user.id', 'sniktau_user.strava_id')
-    .where({token: token})
-    .select()
-    .then(users => isNil(users) ? null : users[0]);
-};
-
-
-export {create, createToken, update, upsert, loadFromToken};
+export {create, retrieve, upsert};
