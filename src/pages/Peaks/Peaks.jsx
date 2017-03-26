@@ -11,14 +11,14 @@ class Peaks extends React.Component {
     return (
       <Map>
         {peaks.map((peak, index) => {
-          const name = `${peak.properties.NAME} (${metersToFeet(peak.properties.ELEV_METER)})`;
+          const name = `${peak.properties.NAME} (${metersToFeet(peak.properties.ELEV_METER)} ft.)`;
           const lat = peak.geometry.coordinates[1];
           const lng = peak.geometry.coordinates[0];
 
-          if (lat < 35 || lat > 41) {
+          if (lat < 37 || lat > 41) {
             return null;
           }
-          if (lng < -108 || lng > -101) {
+          if (lng < -106 || lng > -101) {
             return null;
           }
           return <Peak key={index} name={name} lat={lat} lng={lng} />;

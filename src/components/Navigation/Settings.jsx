@@ -25,7 +25,7 @@ const Settings = ({logout, router, user}) => {
     <div>
       <FlexContainer>
         <ProfilePic src={`${athlete.profile_medium}`} />
-        <IconMenu iconButtonElement={<IconButton value='arrow_r'><MoreVertIcon /></IconButton>}>
+        <IconMenu iconButtonElement={<IconButton value="arrow_r"><MoreVertIcon /></IconButton>}>
           <MenuItem primaryText="Profile" onClick={() => router.push('/profile')} />
           <MenuItem primaryText="Sign out" onClick={logout} />
         </IconMenu>
