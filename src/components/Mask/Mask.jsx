@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
 import styled from 'styled-components';
 
 import {grey400, orange500} from 'material-ui/styles/colors';
@@ -24,15 +25,22 @@ const MessageWrapper = styled.div`
   color: ${orange500};
 `;
 
+const Progress = styled(CircularProgress)`
+  color: ${orange500};
+`;
+
 const Mask = ({message}) => {
   return (
     <MaskWrapper>
       <MessageWrapper>
         <h5>{message}</h5>
+        <Progress size={50} thickness={5} />
       </MessageWrapper>
     </MaskWrapper>
   );
 };
+Mask.muiName = 'Mask';
+
 Mask.propTypes = {
   message: PropTypes.string.isRequired,
 };

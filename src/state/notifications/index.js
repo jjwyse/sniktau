@@ -4,12 +4,9 @@ const initialState = {masks: []};
 const reducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case NOTIFICATIONS_MASK:
-      const newMasks = state.masks.concat([payload]);
-      return Object.assign({}, state, {masks: newMasks});
+      return Object.assign({}, state, {mask: payload});
     case NOTIFICATIONS_MASK_REMOVE:
-      const removedMasks = state.masks.concat([]);
-      removedMasks.pop();
-      return Object.assign({}, state, {masks: removedMasks});
+      return Object.assign({}, state, {mask: null});
     default:
       return state;
   }

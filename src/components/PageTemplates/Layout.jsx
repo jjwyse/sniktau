@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {connect} from 'react-redux';
+import {isNil} from 'ramda';
 import styled from 'styled-components';
 
 import Mask from 'components/Mask/Mask';
@@ -16,24 +17,31 @@ const App = styled.div`
   overflow-y: hidden;
 `;
 
-const Layout = ({children, masks}) => {
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
+const Layout = ({children, mask}) => {
   return (
     <App>
       <MuiThemeProvider>
-        {children}
+        <Wrapper>
+          {children}
+          {!isNil(mask) && <Mask key={mask.message} message={mask.message} />}
+        </Wrapper>
       </MuiThemeProvider>
-      {masks.map(mask => <Mask key={mask.message} message={mask.message} />)}
     </App>
   );
 };
 Layout.propTypes = {
   children: PropTypes.any,
-  masks: PropTypes.array.isRequired,
+  mask: PropTypes.object,
 };
 
 const mapStateToProps = state => {
   return {
-    masks: state.notifications.masks,
+    mask: state.notifications.mask,
   };
 };
 
