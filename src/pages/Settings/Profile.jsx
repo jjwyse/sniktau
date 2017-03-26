@@ -13,7 +13,11 @@ class Profile extends Component {
         <br />
         <TextField disabled floatingLabelText={'Last Name'} value={athlete.lastname} />
         <br />
-        <TextField disabled floatingLabelText={'Home'} value={`${athlete.city}, ${athlete.state} - ${athlete.country}`} />
+        <TextField
+          disabled
+          floatingLabelText={'Home'}
+          value={`${athlete.city}, ${athlete.state} - ${athlete.country}`}
+        />
         <br />
       </div>
     );
