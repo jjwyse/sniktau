@@ -10,6 +10,7 @@ const loadAllPeaks = () => {
       method: 'GET',
       endpoint: '/peaks',
       types: [LOADED],
+      message: 'Loading peaks...',
     },
   };
 };
