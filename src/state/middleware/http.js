@@ -8,7 +8,7 @@
 import fetch from 'isomorphic-fetch';
 import {isNil, merge, pipe, reject} from 'ramda';
 import {stringify} from 'querystring';
-import {CALL_API, NOTIFICATIONS_ALERT, NOTIFICATIONS_MASK} from 'state/types';
+import {CALL_API, NOTIFICATIONS_ALERT, NOTIFICATIONS_MASK, NOTIFICATIONS_MASK_REMOVE} from 'state/types';
 import {loadToken} from 'util/storage';
 
 const createActionOfUnkownType = (actionType, options = {}) => {
@@ -54,7 +54,7 @@ const httpMiddleware = store => next => action => {
   const [requestType, successType, failureType] = httpCall.types;
   const isMaskRequest = requestType === NOTIFICATIONS_MASK;
   if (isMaskRequest) {
-    store.dispatch({type: requestType, payload: {message: 'Loading...'}});
+    store.dispatch({type: requestType, payload: {message: httpCall.message || 'Loading...'}});
   } else {
     store.dispatch(createActionOfUnkownType(requestType, {payload: httpCall.payload}));
   }
@@ -73,7 +73,7 @@ const httpMiddleware = store => next => action => {
       store.dispatch(createActionOfUnkownType(successType, {payload: data, metadata: httpCall.metadata}));
 
       if (isMaskRequest) {
-        store.dispatch({type: NOTIFICATIONS_MASK, payload: null});
+        store.dispatch({type: NOTIFICATIONS_MASK_REMOVE, payload: null});
       }
 
       if (!isNil(httpCall.callback)) {
