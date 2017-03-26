@@ -12,6 +12,7 @@ const oauthLogin = (state, code) => ({
     endpoint: '/oauth',
     types: [LOGGED_IN],
     payload: {code},
+    message: 'Authenticating with Strava...',
   },
 });
 
