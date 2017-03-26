@@ -3,6 +3,22 @@ import GoogleMapReact from 'google-map-react';
 import properties from 'properties';
 
 const Map = ({center, zoom, children}) => {
+  const mapOptions = maps => {
+    return {
+      mapTypeId: maps.MapTypeId.TERRAIN,
+      mapTypeControl: true,
+      zoomControlOptions: {
+        position: maps.ControlPosition.TOP_RIGHT,
+        style: maps.ZoomControlStyle.SMALL,
+      },
+      mapTypeControlOptions: {
+        position: maps.ControlPosition.TOP_RIGHT,
+        style: maps.MapTypeControlStyle.DROPDOWN_MENU,
+        mapTypeIds: [maps.MapTypeId.TERRAIN, maps.MapTypeId.SATELLITE],
+      },
+    };
+  };
+
   return (
     <GoogleMapReact
       bootstrapURLKeys={{
@@ -11,6 +27,8 @@ const Map = ({center, zoom, children}) => {
       }}
       defaultCenter={center}
       defaultZoom={zoom}
+      hoverDistance={40 / 2}
+      options={mapOptions}
     >
       {children}
     </GoogleMapReact>
@@ -23,7 +41,7 @@ Map.propTypes = {
 };
 Map.defaultProps = {
   center: {lat: 39.732, lng: -104.99},
-  zoom: 13,
+  zoom: 11,
 };
 
 export default Map;
