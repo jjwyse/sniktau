@@ -28,7 +28,7 @@ const Layout = ({children, mask}) => {
       <MuiThemeProvider>
         <Wrapper>
           {children}
-          {!isNil(mask) && <Mask key={mask.message} message={mask.message} />}
+          {!isNil(mask) && !isNil(mask.message) && <Mask key={mask.message} message={mask.message} />}
         </Wrapper>
       </MuiThemeProvider>
     </App>
