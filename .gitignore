@@ -43,3 +43,4 @@ dist/
 babel_cache
 private.key
 scratch/
+.idea/
