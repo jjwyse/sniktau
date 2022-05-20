@@ -1,11 +1,24 @@
-# sniktau <sub><sup>| Strava Summits </sup></sub>
+# README
 
---------------------------------------------------------------------------------
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-[![version](http://img.shields.io/badge/version-v0.0.1-blue.svg)](#) 
-[![versioning](http://img.shields.io/badge/versioning-semver-blue.svg)](http://semver.org/) 
-[![Circle CI](https://circleci.com/gh/jjwyse/sniktau.svg?style=shield)](https://circleci.com/gh/jjwyse/sniktau)
+Things you may want to cover:
 
+* Ruby version
 
-## Overview
-Pulls data from [Strava](https://strava.com) and keeps track of all peaks in the United States that you have summited.
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
