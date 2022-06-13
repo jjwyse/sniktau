@@ -11,3 +11,6 @@ pids
 # Custom
 data/
 .idea/
+
+# Rails
+config/master.key
