@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_20_212904) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_12_195102) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "activities", id: :uuid, default: nil, force: :cascade do |t|
+  create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.integer "strava_id", null: false
     t.text "strava_type", null: false
@@ -32,13 +33,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_20_212904) do
     t.integer "strava_elev_low"
   end
 
-  create_table "locations", id: :uuid, default: nil, force: :cascade do |t|
+  create_table "locations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "activity_id", null: false
     t.float "lat", null: false
     t.float "lng", null: false
   end
 
-  create_table "users", id: :uuid, default: nil, force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "bearer_token"
     t.integer "strava_id", null: false
     t.text "strava_username", null: false

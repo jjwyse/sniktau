@@ -2,7 +2,7 @@ class AddActivitiesTable < ActiveRecord::Migration[7.0]
   def up
     execute <<-SQL
       create table activities (
-        id uuid primary key,
+        id uuid primary key default gen_random_uuid(),
         user_id uuid references users(id) not null,
 
         -- Strava-specific attributes from "activity" object
