@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_12_195102) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_12_203442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -39,6 +39,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_195102) do
     t.float "lng", null: false
   end
 
+  create_table "mountains", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "elevation", null: false
+    t.float "lat", null: false
+    t.float "lng", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "user_mountains", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "activity_id", null: false
+    t.uuid "mountain_id", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["activity_id", "mountain_id"], name: "idx_user_mountains_activity_id_mountain_id_uniq", unique: true
+    t.index ["user_id"], name: "idx_user_mountains_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "bearer_token"
     t.integer "strava_id", null: false
@@ -52,4 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_195102) do
 
   add_foreign_key "activities", "users", name: "activities_user_id_fkey"
   add_foreign_key "locations", "activities", name: "locations_activity_id_fkey"
+  add_foreign_key "user_mountains", "activities", name: "user_mountains_activity_id_fkey"
+  add_foreign_key "user_mountains", "mountains", name: "user_mountains_mountain_id_fkey"
+  add_foreign_key "user_mountains", "users", name: "user_mountains_user_id_fkey"
 end
