@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_203442) do
   end
 
   create_table "mountains", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name", null: false
     t.integer "elevation", null: false
     t.float "lat", null: false
     t.float "lng", null: false
