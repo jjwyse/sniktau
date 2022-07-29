@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_12_203442) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_29_213526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.integer "strava_id", null: false
+    t.bigint "strava_id", null: false
     t.text "strava_type", null: false
     t.text "strava_name", null: false
     t.decimal "strava_distance", precision: 10, scale: 2, null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_203442) do
     t.text "strava_city"
     t.text "strava_state"
     t.text "strava_country"
+    t.index ["strava_id"], name: "index_unique_users_strava_id", unique: true
   end
 
   add_foreign_key "activities", "users", name: "activities_user_id_fkey"

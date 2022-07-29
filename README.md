@@ -1,24 +1,17 @@
-# README
+# sniktau 🏔
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Finds all summited mountains based on your [Strava](https://www.strava.com/) activities
 
-Things you may want to cover:
+## Dev jooling
 
-* Ruby version
+#### Seed mountains
+One-time command to seed all Mountains from our mountains.json data file
+```
+rake seed_mountains
+```
 
-* System dependencies
+To seed all Strava activities from data/strava_activities.json into Activity, Location, and UserMountains
+```
+rake db:seed
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
