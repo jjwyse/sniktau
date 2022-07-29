@@ -19,21 +19,14 @@ module UserMountains
     # @!attribute lat - radians
     # @!attribute lng - radians
     def self.mountains_within(lat:, lng:, meters: 100)
-      # Accumulator
-      mountains_close = []
+      sql = <<-SQL
+        select m.id from mountains m
+        where (acos(sin(#{lat}) * sin(m.lat) + cos(#{lat}) * cos(m.lat) * cos(#{lng} - m.lng)) * 6371000) < #{meters};
+      SQL
 
-      Mountain.find_each do |mountain|
-        # Less than 100 meters away?
-        meters_away = Math.acos(Math.sin(lat) * Math.sin(mountain.lat) + Math.cos(lat) * Math.cos(mountain.lat) * Math.cos(lng - mountain.lng)) * 6_371_000
-        if meters_away < meters
-          mountains_close << mountain
-        end
+      entries = ActiveRecord::Base.connection.execute(sql)
 
-        # Go to the next mountain if we already find we summited this one
-        next mountain if mountains_close.include?(mountain)
-      end
-
-      mountains_close
+      Mountain.where(id: entries.map { |entry| entry['id']} ).distinct
     end
   end
 end
