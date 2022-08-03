@@ -2,7 +2,7 @@
 
 Finds all summited mountains based on your [Strava](https://www.strava.com/) activities
 
-## Dev jooling
+## Dev tooling
 
 #### Seed mountains
 One-time command to seed all Mountains from our mountains.json data file
