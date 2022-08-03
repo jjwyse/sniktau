@@ -9,11 +9,13 @@ gem "puma", "~> 5.0"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem 'google_maps_service'
+gem 'rack-cors'
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "factory_bot_rails"
+  gem 'dotenv-rails'
 end
 
 group :development do

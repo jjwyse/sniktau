@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  post '/strava/authenticate', to: 'strava#authenticate'
+  resources :users
 end

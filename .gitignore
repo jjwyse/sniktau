@@ -14,3 +14,7 @@ data/
 
 # Rails
 config/master.key
+.env
+
+# React
+client/node_modules
